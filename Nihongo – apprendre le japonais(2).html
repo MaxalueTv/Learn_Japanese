@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nihongo – apprendre le japonais</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f6f6;--card:#fff;--bd:#e2e2e2;--tx:#161616;--tx2:#666;--rd:#d7263d;--jp:#000;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0e0e0e;--card:#1c1c1e;--bd:#2c2c2e;--tx:#eee;--tx2:#9a9a9a;--jp:#fff;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#0e0e0e;--card:#1c1c1e;--bd:#2c2c2e;--tx:#eee;--tx2:#9a9a9a;--jp:#fff;color-scheme:dark}
+:root[data-theme=sakura]{--bg:#fdf1f4;--card:#fff;--bd:#f2d3dc;--tx:#3a2530;--tx2:#8a6a76;--rd:#d6457a;--jp:#2a1822;color-scheme:light}
+:root[data-theme=bambou]{--bg:#eef5ea;--card:#fbfdf8;--bd:#cfe0c6;--tx:#22301f;--tx2:#5f7a58;--rd:#3f8f5a;--jp:#16240f;color-scheme:light}
+:root[data-theme=indigo]{--bg:#0d1526;--card:#16213a;--bd:#25345a;--tx:#e8ecf7;--tx2:#8f9bbd;--rd:#4a76e8;--jp:#fff;color-scheme:dark}
+:root[data-theme=kaki]{--bg:#f8f0e3;--card:#fffaf1;--bd:#e6d5b8;--tx:#3b2a1a;--tx2:#8a7253;--rd:#c4531e;--jp:#241608;color-scheme:light}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--tx);font:16px system-ui,sans-serif;display:flex}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav{width:200px;padding:20px 12px;border-right:1px solid var(--bd);display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+nav h1{font-size:18px;margin:0 8px 14px}nav h1 span{color:var(--rd)}
+nav button{display:flex;align-items:center;gap:10px;text-align:left;background:none;border:0;color:var(--tx2);padding:10px 12px;border-radius:8px;font-size:15px;cursor:pointer}
+nav button:hover{background:var(--card)}nav button.on{background:var(--rd);color:#fff}
+main{flex:1;overflow:auto;padding:24px;max-width:900px;margin:0 auto}
+.jp{font-family:'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif;color:var(--jp)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:20px;margin-bottom:16px}
+.btn{display:inline-flex;align-items:center;gap:6px;background:var(--rd);color:#fff;border:0;border-radius:8px;padding:9px 16px;cursor:pointer;font-size:14px}
+.btn:hover{filter:brightness(1.1)}.btn:disabled{opacity:.4;cursor:default}
+.btn.g{background:none;color:var(--tx);border:1px solid var(--bd)}.btn.g.on{border-color:var(--rd);color:var(--rd)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+h2{display:flex;align-items:center;gap:10px;margin:0 0 14px;font-size:22px}h2 .ic{color:var(--rd);width:24px;height:24px}.ic{width:18px;height:18px;flex-shrink:0}.intro{color:var(--tx2);margin:-6px 0 16px;font-size:14px}small,.sub{color:var(--tx2)}
+.big{font-size:88px;text-align:center;line-height:1.2}.mid{text-align:center}
+.bar{height:6px;background:var(--bd);border-radius:3px;overflow:hidden}.bar i{display:block;height:100%;background:var(--rd)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(66px,1fr));gap:8px}
+.k{border:1px solid var(--bd);border-radius:8px;padding:8px 0;text-align:center;cursor:pointer;background:var(--card);border-bottom:3px solid var(--bd)}
+.k.l{border-bottom-color:var(--rd)}.k b{font-size:26px;display:block;font-weight:400}.k small{font-size:12px}
+input[type=text]{background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:10px;font-size:18px;width:100%}
+#area{position:relative;height:360px;border:1px solid var(--bd);border-radius:10px;overflow:hidden;background:var(--card)}
+#area .f{position:absolute;font-size:34px;width:44px;text-align:center;transform:translateX(-50%)}
+#area .line{position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--rd)}
+.k.s{background:var(--rd)}.k.s b,.k.s small{color:#fff}.ok{color:#2e9e5b}.no{color:var(--rd)}
+@media(max-width:720px){body{flex-direction:column-reverse}nav{width:100%;flex-direction:row;border:0;border-top:1px solid var(--bd);padding:6px;overflow-x:auto}nav h1{display:none}nav button{white-space:nowrap;padding:10px}main{padding:14px;width:100%}.big{font-size:72px}}
+</style></head><body>
+<nav id="nav"></nav><main id="m"></main>
+<script>
+const $=s=>document.querySelector(s);
+const H="あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
+const R="a i u e o ka ki ku ke ko sa shi su se so ta chi tsu te to na ni nu ne no ha hi fu he ho ma mi mu me mo ya yu yo ra ri ru re ro wa wo n".split(" ");
+const HD="がぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽ",RD="ga gi gu ge go za ji zu ze zo da ji zu de do ba bi bu be bo pa pi pu pe po".split(" ");
+const kt=s=>[...s].map(c=>String.fromCharCode(c.charCodeAt(0)+96)).join("");
+const mk=(s,r,t)=>[...s].map((c,i)=>({c:t=='h'?c:kt(c),r:r[i],t}));
+const KANA=[...mk(H,R,'h'),...mk(HD,RD,'h'),...mk(H,R,'k'),...mk(HD,RD,'k')];
+const ALT={si:'shi',ti:'chi',tu:'tsu',hu:'fu',zi:'ji',di:'ji',du:'zu'};
+const nr=v=>ALT[v]||v;
+const W=[["猫","ねこ","neko","chat","animaux"],["犬","いぬ","inu","chien","animaux"],["鳥","とり","tori","oiseau","animaux"],["魚","さかな","sakana","poisson","animaux"],
+["こんにちは","こんにちは","konnichiwa","bonjour","salutations"],["ありがとう","ありがとう","arigatō","merci","salutations"],["さようなら","さようなら","sayōnara","au revoir","salutations"],["おはよう","おはよう","ohayō","bonjour (matin)","salutations"],
+["水","みず","mizu","eau","nourriture"],["ご飯","ごはん","gohan","riz, repas","nourriture"],["パン","パン","pan","pain","nourriture"],["お茶","おちゃ","ocha","thé","nourriture"],["肉","にく","niku","viande","nourriture"],
+["本","ほん","hon","livre","objets"],["机","つくえ","tsukue","bureau","objets"],["傘","かさ","kasa","parapluie","objets"],["車","くるま","kuruma","voiture","objets"],
+["母","はは","haha","ma mère","famille"],["父","ちち","chichi","mon père","famille"],["兄","あに","ani","grand frère","famille"],["友達","ともだち","tomodachi","ami","famille"],
+["駅","えき","eki","gare","déplacements"],["道","みち","michi","chemin, route","déplacements"],["電車","でんしゃ","densha","train","déplacements"],
+["食べる","たべる","taberu","manger","verbes"],["飲む","のむ","nomu","boire","verbes"],["行く","いく","iku","aller","verbes"],["見る","みる","miru","voir, regarder","verbes"],["読む","よむ","yomu","lire","verbes"],
+["大きい","おおきい","ōkii","grand","adjectifs"],["小さい","ちいさい","chiisai","petit","adjectifs"],["新しい","あたらしい","atarashii","nouveau","adjectifs"],["美味しい","おいしい","oishii","délicieux","adjectifs"],
+["お願いします","おねがいします","onegai shimasu","s'il vous plaît","expressions"],["すみません","すみません","sumimasen","excusez-moi","expressions"],["大丈夫","だいじょうぶ","daijōbu","ça va, pas de problème","expressions"]];
+let S=Object.assign({theme:'auto',lk:{},lw:{},wi:0,iv:600000,start:Date.now(),paused:false,rem:0,best:0,res:[],wrong:{},vis:'',cat:'toutes'},JSON.parse(localStorage.getItem('nj')||'{}'));
+const save=()=>{try{localStorage.setItem('nj',JSON.stringify(S))}catch(e){}};
+const setTheme=()=>{if(S.theme=='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',S.theme)};
+setTheme();
+const V=[["home","Vocabulaire"],["kana","Kana"],["quiz","Quiz"],["game","Jeu des kana"],["rd","Lecture"],["tr","Traduction"],["set","Progression"]];
+let view="home";
+function go(v){stopGame();view=v;$("#nav").innerHTML='<h1><span>日本語</span> Nihongo</h1>'+V.map(x=>`<button class="${x[0]==v?'on':''}" onclick="go('${x[0]}')">${ic(x[0])}<span>${x[1]}</span></button>`).join("");({home,kana,quiz,cq,game,rd:read,tr:trad,set})[v]();$("#m").scrollTop=0}
+const bar=p=>`<div class="bar"><i style="width:${p}%"></i></div>`;
+/* ---------- Vocabulaire ---------- */
+const IV=[[6e5,"10 minutes"],[18e5,"30 minutes"],[36e5,"1 heure"],[864e5,"1 jour (24 h)"]];
+function home(){const w=W[S.wi],n=Object.keys(S.lw).length;
+$("#m").innerHTML=`<h2>${ic('home')}Apprendre un mot</h2><p class="intro">Un mot japonais à la fois. Il change tout seul après le délai choisi ; marquez-le « appris » quand vous le connaissez.</p><div class="card"><div class="mid sub">${w[4]}</div><div class="big jp">${w[0]}</div>
+<div class="mid jp" style="font-size:20px">${w[1]}</div><div class="mid" style="font-size:20px;margin-top:6px">${w[2]}</div><div class="mid sub" style="font-size:20px">${w[3]}</div>
+<div class="row" style="justify-content:center"><button class="btn g" onclick="speak()">${ic('sound')}Écouter</button><button class="btn ${S.lw[S.wi]?'':'g'}" onclick="learnW()">${S.lw[S.wi]?'Appris':'Marquer appris'}</button></div></div>
+<div class="card"><div class="row"><button class="btn g" onclick="mv(-1)">${ic('left')}Précédent</button><button class="btn g" onclick="mv(1)">Suivant${ic('right')}</button><button class="btn g" onclick="mv(1)">Afficher un mot maintenant</button><button class="btn" onclick="pz()">${ic(S.paused?'play':'pause')}${S.paused?'Reprendre':'Pause'}</button></div>
+<div class="row"><small>Changer le mot automatiquement toutes les :</small>${IV.map(i=>`<button class="btn g ${S.iv==i[0]?'on':''}" onclick="setIv(${i[0]})">${i[1]}</button>`).join("")}</div>
+<small id="cd"></small><div style="margin-top:8px" class="bar"><i id="cb" style="width:0"></i></div></div>
+<div class="card"><b>Mots appris : ${n} / ${W.length}</b>${bar(n/W.length*100)}<div class="row">${W.map((x,i)=>S.lw[i]?`<span class="jp" style="border-bottom:3px solid var(--rd);padding:2px 4px">${x[0]}</span>`:'').join("")||'<small>Aucun mot appris pour l\'instant.</small>'}</div></div>`;tick()}
+function tick(){if(view!='home')return;const e=S.paused?S.iv-S.rem:Date.now()-S.start;
+if(!S.paused&&e>=S.iv){const k=Math.floor(e/S.iv);S.wi=(S.wi+k)%W.length;S.start+=k*S.iv;save();return home()}
+const r=Math.max(0,S.iv-e),s=Math.ceil(r/1e3),t=s>=3600?Math.floor(s/3600)+" h "+Math.floor(s%3600/60)+" min":Math.floor(s/60)+" min "+s%60+" s";
+const c=$("#cd");if(c){c.textContent=(S.paused?"En pause. ":"")+"Prochain mot dans "+t;$("#cb").style.width=e/S.iv*100+"%"}}
+setInterval(tick,1000);
+const mv=d=>{S.wi=(S.wi+d+W.length)%W.length;S.start=Date.now();S.rem=S.iv;save();home()};
+const pz=()=>{if(S.paused){S.start=Date.now()-(S.iv-S.rem);S.paused=false}else{S.rem=S.iv-(Date.now()-S.start);S.paused=true}save();home()};
+const setIv=v=>{S.iv=v;S.start=Date.now();S.paused=false;save();home()};
+const learnW=()=>{S.lw[S.wi]?delete S.lw[S.wi]:S.lw[S.wi]=1;save();home()};
+function speak(){if(!('speechSynthesis' in window))return alert("La synthèse vocale n'est pas disponible sur ce navigateur.");const u=new SpeechSynthesisUtterance(W[S.wi][1]);u.lang='ja-JP';speechSynthesis.cancel();speechSynthesis.speak(u)}
+/* ---------- Icônes ---------- */
+const ICO={
+home:'<path d="M4 4h6a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H4z"/><path d="M20 4h-6a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H20z"/>',
+kana:'<rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/>',
+quiz:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7"/><path d="M12 17h.01"/>',
+game:'<path d="M12 4v13"/><path d="M6 12l6 6 6-6"/><path d="M5 21h14"/>',
+rd:'<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 13h7M9 17h7"/>',
+set:'<path d="M5 20V10M12 20V4M19 20v-7"/>',
+play:'<path d="M8 5l11 7-11 7z"/>',pause:'<path d="M9 5v14M15 5v14"/>',plus:'<path d="M12 5v14M5 12h14"/>',
+trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
+sound:'<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/>',
+left:'<path d="M15 6l-6 6 6 6"/>',right:'<path d="M9 6l6 6-6 6"/>',tr:'<path d="M4 5h9M8.5 3v2M6 5c0 4 3 7 7 8M12 5c-1 4-4 7-8 8"/><path d="M13 20l4-9 4 9M14.5 17h5"/>'};
+const ic=n=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICO[n]}</svg>`;
+/* ---------- Kanji (N5) ---------- */
+const KJ=[
+['日','ニチ・ジツ','ひ・か','jour, soleil','日本','にほん','Japon'],
+['月','ゲツ・ガツ','つき','lune, mois','月曜日','げつようび','lundi'],
+['火','カ','ひ','feu','火曜日','かようび','mardi'],
+['水','スイ','みず','eau','水曜日','すいようび','mercredi'],
+['木','モク・ボク','き','arbre, bois','木曜日','もくようび','jeudi'],
+['金','キン','かね','or, argent','お金','おかね','argent'],
+['土','ド・ト','つち','terre','土曜日','どようび','samedi'],
+['山','サン','やま','montagne','富士山','ふじさん','mont Fuji'],
+['川','セン','かわ','rivière','川','かわ','rivière'],
+['人','ジン・ニン','ひと','personne','日本人','にほんじん','Japonais(e)'],
+['大','ダイ・タイ','おお(きい)','grand','大学','だいがく','université'],
+['小','ショウ','ちい(さい)','petit','小学生','しょうがくせい','écolier'],
+['中','チュウ','なか','milieu, dans','中','なか','intérieur'],
+['上','ジョウ','うえ','dessus, haut','上','うえ','dessus'],
+['下','カ・ゲ','した','dessous, bas','下','した','dessous'],
+['目','モク','め','œil','目','め','œil'],
+['口','コウ・ク','くち','bouche','入口','いりぐち','entrée'],
+['手','シュ','て','main','手紙','てがみ','lettre'],
+['耳','ジ','みみ','oreille','耳','みみ','oreille'],
+['学','ガク','まな(ぶ)','étudier','学校','がっこう','école'],
+['先','セン','さき','avant, précédent','先生','せんせい','professeur'],
+['生','セイ・ショウ','い(きる)・う(まれる)・なま','vie, naître','学生','がくせい','étudiant(e)'],
+['本','ホン','もと','livre, origine','本','ほん','livre'],
+['食','ショク','た(べる)','manger','食べる','たべる','manger'],
+['飲','イン','の(む)','boire','飲む','のむ','boire'],
+['見','ケン','み(る)','voir','見る','みる','voir, regarder'],
+['行','コウ・ギョウ','い(く)・おこな(う)','aller','行く','いく','aller'],
+['来','ライ','く(る)','venir','来る','くる','venir'],
+['天','テン','あめ・あま','ciel','天気','てんき','météo'],
+['気','キ・ケ','','esprit, énergie','元気','げんき','en forme']
+].map(a=>({t:'j',c:a[0],on:a[1],kun:a[2],fr:a[3],ex:[a[4],a[5],a[6]]}));
+const kjl=a=>a.map(k=>`<div class="card" style="display:flex;gap:16px;align-items:center;cursor:pointer" onclick="tg('j${k.c}')"><div class="jp" style="font-size:56px;min-width:80px;text-align:center;border-bottom:4px solid ${S.lk['j'+k.c]?'var(--rd)':'transparent'}">${k.c}</div><div><b>${k.fr}</b> <small>· JLPT N5</small><div class="sub">On : ${k.on||'–'} · Kun : ${k.kun||'–'}</div><div class="jp">${k.ex[0]} (${k.ex[1]}) <span class="sub">${k.ex[2]}</span></div></div></div>`).join("");
+/* ---------- Kana ---------- */
+let kt_='h',kf='all';
+function kana(){const L=kt_=='j'?KJ:KANA.filter(k=>k.t==kt_),n=L.filter(k=>S.lk[k.t+k.c]).length;
+const sh=L.filter(k=>kf=='all'||(kf=='l')==!!S.lk[k.t+k.c]);
+$("#m").innerHTML=`<h2>${ic('kana')}Kana et kanji</h2><p class="intro">Choisissez un système d’écriture, puis cliquez sur un caractère que vous connaissez : une barre rouge apparaît dessous.</p><div class="row"><button class="btn g ${kt_=='h'?'on':''}" onclick="kt_='h';kana()">Hiragana</button><button class="btn g ${kt_=='k'?'on':''}" onclick="kt_='k';kana()">Katakana</button><button class="btn g ${kt_=='j'?'on':''}" onclick="kt_='j';kana()">Kanji</button></div>
+<div class="card"><b>${n} / ${L.length} appris (${Math.round(n/L.length*100)} %)</b>${bar(n/L.length*100)}
+<div class="row">${[['all','Tous'],['l','Appris'],['u','Non appris']].map(f=>`<button class="btn g ${kf==f[0]?'on':''}" onclick="kf='${f[0]}';kana()">${f[1]}</button>`).join("")}<small>Cliquez sur un caractère pour le marquer comme appris.</small></div></div>
+${kt_=='j'?kjl(sh):''}<div class="grid">${(kt_=='j'?[]:sh).map(k=>`<div class="k ${S.lk[k.t+k.c]?'l':''}" onclick="tg('${k.t+k.c}')"><b class="jp">${k.c}</b><small>${k.r}</small></div>`).join("")}</div>`}
+const tg=k=>{S.lk[k]?delete S.lk[k]:S.lk[k]=1;save();kana()};
+/* ---------- Quiz ---------- */
+let Q=null,qs={sc:'hk',dir:'k2r',n:10};
+let qtab='q';
+function qt(){return `<div class="row"><button class="btn g ${qtab=='q'?'on':''}" onclick="qtab='q';quiz()">Quiz rapide</button><button class="btn g ${qtab=='c'?'on':''}" onclick="qtab='c';quiz()">Mes quiz</button></div>`}
+function quiz(){if(Q&&Q.i<Q.l.length)return qshow();if(qtab=='c')return cq();
+const rs=S.res.slice(-5).reverse();
+$("#m").innerHTML=`<h2>${ic('quiz')}Quiz</h2><p class="intro">Réglez le quiz puis commencez. L’onglet « Mes quiz » regroupe vos quiz personnalisés.</p>${qt()}<div class="card"><div class="row"><small>Système</small>${[['h','Hiragana'],['k','Katakana'],['hk','Les deux']].map(x=>`<button class="btn g ${qs.sc==x[0]?'on':''}" onclick="qs.sc='${x[0]}';quiz()">${x[1]}</button>`).join("")}</div>
+<div class="row"><small>Direction</small><button class="btn g ${qs.dir=='k2r'?'on':''}" onclick="qs.dir='k2r';quiz()">Kana → romaji (saisie)</button><button class="btn g ${qs.dir=='r2k'?'on':''}" onclick="qs.dir='r2k';quiz()">Romaji → kana (choix)</button></div>
+<div class="row"><small>Questions</small>${[10,20,50].map(x=>`<button class="btn g ${qs.n==x?'on':''}" onclick="qs.n=${x};quiz()">${x}</button>`).join("")}</div><button class="btn" onclick="qstart()">Commencer</button>
+<p class="sub" style="font-size:14px">Les caractères non appris ou déjà ratés sont proposés en priorité.</p></div>
+${Q?`<div class="card"><b>Résultat : ${Q.sc} / ${Q.l.length}</b></div>`:''}
+<div class="card"><b>Derniers résultats</b>${rs.map(r=>`<div class="sub">${new Date(r.d).toLocaleDateString('fr-FR')} : ${r.s} / ${r.n}</div>`).join("")||'<div class="sub">Aucun quiz réalisé.</div>'}</div>`}
+function qstart(cl,cd,cid){let p=cl||KANA.filter(k=>qs.sc.includes(k.t));
+p=p.map(k=>({k,w:(S.lk[k.t+k.c]?1:3)+(S.wrong[k.t+k.c]||0)*2+Math.random()*2})).sort((a,b)=>b.w-a.w).map(x=>x.k);
+const l=p.slice(0,Math.min(cid?(S.cq.find(x=>x.id==cid).n||p.length):qs.n,p.length)).sort(()=>Math.random()-.5);Q={l,i:0,sc:0,fb:null,dir:cd||qs.dir,cid};qshow()}
+function qshow(){const k=Q.l[Q.i];let body;
+if(Q.dir=='k2r')body=`<div class="big jp">${k.c}</div><input type="text" id="qa" autocomplete="off" autocapitalize="off" placeholder="Romaji" ${Q.fb?'disabled':''} onkeydown="if(event.key=='Enter')qans(this.value)">`;
+else{const o=[k,...KANA.filter(x=>x.t==k.t&&x.r!=k.r).sort(()=>Math.random()-.5).slice(0,3)].sort(()=>Math.random()-.5);if(!Q.o||Q.oi!=Q.i){Q.o=o;Q.oi=Q.i}
+body=`<div class="big">${k.r}</div><div class="row" style="justify-content:center">${Q.o.map(x=>`<button class="btn g jp" style="font-size:32px" ${Q.fb?'disabled':''} onclick="qans('${x.c}')">${x.c}</button>`).join("")}</div>`}
+$("#m").innerHTML=`<h2>Quiz</h2><div class="card">${bar(Q.i/Q.l.length*100)}<p class="sub">Question ${Q.i+1} / ${Q.l.length} · Score ${Q.sc}</p>${body}
+${Q.fb?`<p class="mid ${Q.fb.ok?'ok':'no'}"><b>${Q.fb.ok?'Correct':'Incorrect'}</b> : ${k.c} = ${k.r}</p><div class="mid"><button class="btn" onclick="qnext()">${Q.i+1<Q.l.length?'Suivant':'Voir le résultat'}</button></div>`:''}</div>`;
+const a=$("#qa");if(a&&!Q.fb)a.focus()}
+function qans(v){if(Q.fb)return;const k=Q.l[Q.i];const ok=Q.dir=='k2r'?nr(v.trim().toLowerCase())==nr(k.r):v==k.c;
+Q.fb={ok};if(ok)Q.sc++;else S.wrong[k.t+k.c]=(S.wrong[k.t+k.c]||0)+1;else_();qshow()}
+const else_=()=>save();
+function qnext(){Q.i++;Q.fb=null;if(Q.i>=Q.l.length){S.res.push({d:Date.now(),s:Q.sc,n:Q.l.length});if(Q.cid){const c=S.cq.find(x=>x.id==Q.cid);if(c){c.t=(c.t||0)+1;c.last=Q.sc+' / '+Q.l.length}Q=null;save();qtab='c';return go('quiz')}save()}quiz()}
+/* ---------- Quiz personnalisés ---------- */
+let CE=null,cet='h';
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const cats=q=>[...new Set(Object.keys(q.sel).map(k=>k[0]))].map(t=>t=='h'?'Hiragana':'Katakana').join(' + ');
+function cq(){S.cq=S.cq||[];if(Q&&Q.cid&&Q.i<Q.l.length)return qshow();if(CE)return cedit();
+$("#m").innerHTML=`<h2>${ic('quiz')}Mes quiz</h2><p class="intro">Créez un quiz avec les syllabes de votre choix ; il reste enregistré ici.</p>${qt()}<div class="row"><button class="btn" onclick="cnew()">${ic('plus')}Créer un quiz</button></div>`+(S.cq.map(q=>`<div class="card"><b>${esc(q.name)}</b><div class="sub">${cats(q)} · ${Object.keys(q.sel).length} caractères · ${q.dir=='k2r'?'Kana → romaji (saisie)':'Romaji → kana (choix)'}</div><div class="sub">Tentatives : ${q.t||0} · Dernier résultat : ${q.last||'–'}</div><div class="row"><button class="btn" onclick="cplay(${q.id})">${ic('play')}Lancer</button><button class="btn g" onclick="cmod(${q.id})">Modifier</button><button class="btn g" onclick="cren(${q.id})">Renommer</button><button class="btn g" onclick="cdup(${q.id})">Dupliquer</button><button class="btn g" onclick="cdel(${q.id})">${ic('trash')}Supprimer</button></div></div>`).join("")||'<p class="sub">Aucun quiz pour l\'instant. Cliquez sur « Créer un quiz ».</p>')}
+const cnew=()=>{CE={id:null,name:'',sel:{},dir:'k2r',n:0};cedit()};
+const cmod=id=>{CE=JSON.parse(JSON.stringify(S.cq.find(x=>x.id==id)));cedit()};
+const cren=id=>{const q=S.cq.find(x=>x.id==id),n=prompt('Nouveau nom',q.name);if(n&&n.trim()){q.name=n.trim();save();cq()}};
+const cdup=id=>{const q=JSON.parse(JSON.stringify(S.cq.find(x=>x.id==id)));q.id=Date.now();q.name+=' (copie)';q.t=0;q.last=null;S.cq.push(q);save();cq()};
+const cdel=id=>{if(confirm('Supprimer ce quiz ?')){S.cq=S.cq.filter(x=>x.id!=id);save();cq()}};
+const cplay=id=>{const q=S.cq.find(x=>x.id==id);qstart(KANA.filter(k=>q.sel[k.t+k.c]),q.dir,id)};
+function cedit(){const y=$("#m").scrollTop,L=KANA.filter(k=>k.t==cet);
+$("#m").innerHTML=`<h2>${CE.id?'Modifier':'Créer'} un quiz</h2><div class="card"><input type="text" placeholder="Nom du quiz" value="${esc(CE.name)}" oninput="CE.name=this.value">
+<div class="row"><small>Nombre de questions</small>${[[10,'10'],[20,'20'],[0,'Tous les caractères']].map(x=>`<button class="btn g ${CE.n==x[0]?'on':''}" onclick="CE.n=${x[0]};cedit()">${x[1]}</button>`).join("")}</div>
+<div class="row"><small>Type</small><button class="btn g ${CE.dir=='k2r'?'on':''}" onclick="CE.dir='k2r';cedit()">Kana → romaji (saisie)</button><button class="btn g ${CE.dir=='r2k'?'on':''}" onclick="CE.dir='r2k';cedit()">Romaji → kana (choix)</button></div>
+<div class="row"><button class="btn g ${cet=='h'?'on':''}" onclick="cet='h';cedit()">Hiragana</button><button class="btn g ${cet=='k'?'on':''}" onclick="cet='k';cedit()">Katakana</button></div>
+<div class="row"><button class="btn g" onclick="csel(1)">Tout sélectionner</button><button class="btn g" onclick="csel(0)">Tout désélectionner</button><button class="btn g" onclick="csel(2)">Sélectionner les non appris</button></div>
+<b id="cn">${Object.keys(CE.sel).length} caractère(s) sélectionné(s)</b></div><div class="grid">${L.map(k=>`<div class="k ${CE.sel[k.t+k.c]?'s':''}" onclick="ctg('${k.t+k.c}',this)"><b class="jp">${k.c}</b><small>${k.r}</small></div>`).join("")}</div>
+<div class="row"><button class="btn" onclick="csave()">Enregistrer</button><button class="btn g" onclick="CE=null;cq()">Annuler</button></div>`;$("#m").scrollTop=y}
+function ctg(id,el){CE.sel[id]?delete CE.sel[id]:CE.sel[id]=1;el.classList.toggle('s');$("#cn").textContent=Object.keys(CE.sel).length+' caractère(s) sélectionné(s)'}
+function csel(m){KANA.filter(k=>k.t==cet).forEach(k=>{const id=k.t+k.c;if(m==0)delete CE.sel[id];else if(m==1||!S.lk[id])CE.sel[id]=1});cedit()}
+function csave(){const nm=CE.name.trim();if(!nm)return alert('Donnez un nom au quiz.');if(!Object.keys(CE.sel).length)return alert('Sélectionnez au moins un caractère.');CE.name=nm;if(CE.id){const i=S.cq.findIndex(x=>x.id==CE.id);S.cq[i]=Object.assign(S.cq[i],CE)}else{CE.id=Date.now();CE.t=0;S.cq.push(CE)}CE=null;save();cq()}
+/* ---------- Lecture ---------- */
+const ST=[
+{n:'Le petit-déjeuner',lv:'Débutant',s:[
+['わたしは たなかです。','Watashi wa Tanaka desu.','Je m’appelle Tanaka.'],
+['まいあさ ろくじに おきます。','Maiasa rokuji ni okimasu.','Chaque matin, je me lève à 6 heures.'],
+['あさごはんに パンと たまごを たべます。','Asagohan ni pan to tamago o tabemasu.','Au petit-déjeuner, je mange du pain et des œufs.'],
+['そして おちゃを のみます。','Soshite ocha o nomimasu.','Ensuite, je bois du thé.'],
+['しちじに いえを でて、がっこうへ いきます。','Shichiji ni ie o dete, gakkō e ikimasu.','À 7 heures, je sors de la maison et je vais à l’école.']]},
+{n:'Au konbini',lv:'Débutant',s:[
+['きょう、コンビニに いきました。','Kyō, konbini ni ikimashita.','Aujourd’hui, je suis allé au konbini.'],
+['おにぎりと おちゃを かいました。','Onigiri to ocha o kaimashita.','J’ai acheté un onigiri et du thé.'],
+['てんいんさんは「いらっしゃいませ」と いいました。','Ten’in-san wa «irasshaimase» to iimashita.','L’employé a dit « Bienvenue ».'],
+['ぜんぶで さんびゃくえんです。','Zenbu de sanbyaku en desu.','Cela fait 300 yens au total.'],
+['「ありがとうございました」と いわれて、うれしかったです。','«Arigatō gozaimashita» to iwarete, ureshikatta desu.','On m’a dit « Merci », et j’ai été content.']]},
+{n:'Une promenade à Tokyo',lv:'Intermédiaire',s:[
+['日曜日、友達と東京を散歩しました。','Nichiyōbi, tomodachi to Tōkyō o sanpo shimashita.','Dimanche, je me suis promené dans Tokyo avec un ami.'],
+['駅の近くに大きい公園があります。','Eki no chikaku ni ōkii kōen ga arimasu.','Près de la gare, il y a un grand parc.'],
+['公園で桜の写真をたくさん撮りました。','Kōen de sakura no shashin o takusan torimashita.','Au parc, j’ai pris beaucoup de photos de cerisiers.'],
+['昼ごはんに、小さいレストランでラーメンを食べました。','Hirugohan ni, chiisai resutoran de rāmen o tabemashita.','Pour le déjeuner, j’ai mangé des ramen dans un petit restaurant.'],
+['疲れましたが、とても楽しい一日でした。','Tsukaremashita ga, totemo tanoshii ichinichi deshita.','J’étais fatigué, mais c’était une journée très agréable.']]},
+{n:'Un village japonais',lv:'Avancé',s:[
+['去年の夏、祖父が住んでいる小さな村を訪れた。','Kyonen no natsu, sofu ga sunde iru chiisana mura o otozureta.','L’été dernier, j’ai rendu visite au petit village où vit mon grand-père.'],
+['村には電車の駅がなく、バスで一時間以上かかった。','Mura ni wa densha no eki ga naku, basu de ichijikan ijō kakatta.','Il n’y avait pas de gare dans le village ; le trajet en bus a pris plus d’une heure.'],
+['着いたとき、祖父は畑で野菜を育てていた。','Tsuita toki, sofu wa hatake de yasai o sodatete ita.','À mon arrivée, mon grand-père cultivait des légumes dans son champ.'],
+['夜は静かで、空にたくさんの星が見えた。','Yoru wa shizuka de, sora ni takusan no hoshi ga mieta.','La nuit était calme et on voyait beaucoup d’étoiles dans le ciel.'],
+['都会では味わえない時間を、私は一生忘れないだろう。','Tokai de wa ajiwaenai jikan o, watashi wa isshō wasurenai darō.','Je n’oublierai probablement jamais ces moments qu’on ne peut pas vivre en ville.']]}];
+let rc=null,rr=false,rt=false,RO={},TR={};
+function read(){S.rf=S.rf||{};S.rv=S.rv||{};const y=$("#m").scrollTop;
+if(rc==null){$("#m").innerHTML=`<h2>${ic('rd')}Lecture</h2><p class="intro">Choisissez un texte. Le romaji et la traduction sont masqués par défaut : affichez-les phrase par phrase, ou pour tout le texte.</p>`+ST.map((t,i)=>`<div class="card"><b>${t.n}</b> <small>· ${t.lv} · ${t.s.length} phrases${S.rf[i]?' · Terminé':''}${S.rv[i]?' · Favori':''}</small><div class="row"><button class="btn" onclick="ropen(${i})">${S.rp==i?'Reprendre':'Lire'}</button></div></div>`).join("");return}
+const t=ST[rc];
+$("#m").innerHTML=`<div class="row"><button class="btn g" onclick="rc=null;read()">Retour</button><button class="btn g ${rr?'on':''}" onclick="rr=!rr;read()">Romaji partout</button><button class="btn g ${rt?'on':''}" onclick="rt=!rt;read()">Traduction complète</button><button class="btn g ${S.rv[rc]?'on':''}" onclick="rtog('rv')">Favori</button><button class="btn ${S.rf[rc]?'':'g'}" onclick="rtog('rf')">${S.rf[rc]?'Terminé':'Marquer terminé'}</button></div><h2>${t.n} <small>${t.lv}</small></h2>`+t.s.map((x,i)=>`<div class="card"><div class="jp" style="font-size:24px;line-height:1.7">${x[0]}</div>${rr||RO[i]?`<div class="sub" style="margin-top:6px">${x[1]}</div>`:''}${rt||TR[i]?`<div style="margin-top:6px">${x[2]}</div>`:''}<div class="row"><button class="btn g ${RO[i]?'on':''}" onclick="RO[${i}]=!RO[${i}];read()">Romaji</button><button class="btn g ${TR[i]?'on':''}" onclick="TR[${i}]=!TR[${i}];read()">Traduction</button></div></div>`).join("");$("#m").scrollTop=y}
+function ropen(i){rc=i;RO={};TR={};S.rp=i;save();read();$("#m").scrollTop=0}
+function rtog(k){S[k][rc]?delete S[k][rc]:S[k][rc]=1;save();read()}
+/* ---------- Traduction ---------- */
+const EX=[['私','わたし','watashi','je, moi'],['あなた','あなた','anata','tu, vous'],['先生','せんせい','sensei','professeur'],['学生','がくせい','gakusei','étudiant(e)'],['学校','がっこう','gakkō','école'],['日本','にほん','nihon','Japon'],['日本語','にほんご','nihongo','japonais (langue)'],['フランス','フランス','furansu','France'],['東京','とうきょう','Tōkyō','Tokyo'],['今日','きょう','kyō','aujourd’hui'],['明日','あした','ashita','demain'],['昨日','きのう','kinō','hier'],['時間','じかん','jikan','temps, heure'],['お金','おかね','okane','argent'],['店','みせ','mise','magasin'],['家','いえ','ie','maison'],['花','はな','hana','fleur'],['桜','さくら','sakura','cerisier'],['山','やま','yama','montagne'],['海','うみ','umi','mer'],['空','そら','sora','ciel'],['雨','あめ','ame','pluie'],['天気','てんき','tenki','météo'],['朝','あさ','asa','matin'],['夜','よる','yoru','nuit, soir'],['昼','ひる','hiru','midi, journée'],['好き','すき','suki','aimer, apprécié'],['楽しい','たのしい','tanoshii','amusant, agréable'],['難しい','むずかしい','muzukashii','difficile'],['高い','たかい','takai','haut, cher'],['安い','やすい','yasui','bon marché'],['寒い','さむい','samui','froid (temps)'],['暑い','あつい','atsui','chaud (temps)'],['話す','はなす','hanasu','parler'],['書く','かく','kaku','écrire'],['聞く','きく','kiku','écouter, demander'],['買う','かう','kau','acheter'],['待つ','まつ','matsu','attendre'],['分かる','わかる','wakaru','comprendre'],['勉強','べんきょう','benkyō','étude'],['仕事','しごと','shigoto','travail'],['はい','はい','hai','oui'],['いいえ','いいえ','iie','non'],['こんばんは','こんばんは','konbanwa','bonsoir'],['おやすみなさい','おやすみなさい','oyasuminasai','bonne nuit'],['いただきます','いただきます','itadakimasu','bon appétit (avant le repas)'],['ごちそうさま','ごちそうさま','gochisōsama','merci pour le repas'],['はじめまして','はじめまして','hajimemashite','enchanté (première rencontre)'],['どこ','どこ','doko','où'],['これ','これ','kore','ceci'],['いくら','いくら','ikura','combien'],['ください','ください','kudasai','s’il vous plaît (demande)'],['少し','すこし','sukoshi','un peu'],['する','する','suru','faire'],['します','します','shimasu','faire (poli)'],['食べます','たべます','tabemasu','manger (poli)'],['飲みます','のみます','nomimasu','boire (poli)'],['行きます','いきます','ikimasu','aller (poli)'],['見ます','みます','mimasu','voir (poli)'],['読みます','よみます','yomimasu','lire (poli)'],['は','は','wa','particule du thème'],['を','を','o','particule du complément d’objet'],['に','に','ni','particule : lieu, heure, destination'],['で','で','de','particule : lieu de l’action, moyen'],['の','の','no','particule : appartenance'],['と','と','to','et, avec'],['が','が','ga','particule du sujet'],['も','も','mo','aussi'],['へ','へ','e','vers'],['です','です','desu','être (poli)'],['ます','ます','masu','suffixe de politesse (verbes)'],['か','か','ka','particule interrogative']];
+const DICT=[...EX,...W.map(w=>w.slice(0,4))];
+const PH=[...ST.flatMap(t=>t.s),['ありがとうございます。','Arigatō gozaimasu.','Merci beaucoup.'],['お元気ですか。','Ogenki desu ka.','Comment allez-vous ?'],['はい、元気です。','Hai, genki desu.','Oui, je vais bien.'],['これはいくらですか。','Kore wa ikura desu ka.','Combien coûte ceci ?'],['トイレはどこですか。','Toire wa doko desu ka.','Où sont les toilettes ?'],['日本語が少し話せます。','Nihongo ga sukoshi hanasemasu.','Je parle un peu japonais.'],['もう一度お願いします。','Mō ichido onegai shimasu.','Encore une fois, s’il vous plaît.'],['分かりません。','Wakarimasen.','Je ne comprends pas.'],['私は学生です。','Watashi wa gakusei desu.','Je suis étudiant(e).'],['水をください。','Mizu o kudasai.','De l’eau, s’il vous plaît.'],['駅はどこですか。','Eki wa doko desu ka.','Où est la gare ?']];
+const KR={};KANA.forEach(k=>KR[k.c]=k.r);
+function rom(s){let o='',i=0;while(i<s.length){const c=s[i],r=KR[c];
+if(c=='っ'||c=='ッ'){const n=KR[s[i+1]];o+=n?n[0]:'';i++;continue}
+if(c=='ー'){o+=o.slice(-1);i++;continue}
+if(!r){o+=c;i++;continue}
+const sm={'ゃ':'a','ゅ':'u','ょ':'o','ャ':'a','ュ':'u','ョ':'o'}[s[i+1]];
+if(sm){o+=(r=='shi'||r=='chi'||r=='ji'?r.slice(0,-1):r.slice(0,-1)+'y')+sm;i+=2;continue}
+o+=r;i++}return o}
+const MP=new Map();DICT.forEach(e=>{MP.set(e[0],e);if(!MP.has(e[1]))MP.set(e[1],e)});
+function seg(s){const t=[];let i=0;while(i<s.length){let f=null;for(let L=Math.min(8,s.length-i);L>0;L--){const e=MP.get(s.substr(i,L));if(e){f={jp:s.substr(i,L),e};i+=L;break}}if(!f){f={jp:s[i],e:null};i++}t.push(f)}
+const o=[];t.forEach(x=>{const l=o[o.length-1];if(!x.e&&l&&!l.e)l.jp+=x.jp;else o.push(x)});return o}
+const nm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9 \u3040-\u30ff\u4e00-\u9fff]/g,' ').replace(/\s+/g,' ').trim();
+const np=s=>s.replace(/[\s。、！？!?.,「」]/g,'');
+let tq='',tro=true,ttr=true;
+const tsy=()=>{const i=$("#tqi");if(i)tq=i.value};
+const trow=(jp,rd,ro,fr)=>`<div class="card" style="margin-bottom:10px"><div class="jp" style="font-size:26px">${jp}${rd&&rd!=jp?` <small class="sub">(${rd})</small>`:''}</div>${tro&&ro?`<div class="sub">${ro}</div>`:''}${ttr&&fr?`<div>${fr}</div>`:''}</div>`;
+function tres(q){let h='';const s=np(q);
+if(/[\u3040-\u30ff\u4e00-\u9fff]/.test(q)){const ph=PH.filter(p=>np(p[0])==s);
+if(ph.length){h+='<b>Phrase connue</b><div style="margin-top:8px"></div>'+ph.map(p=>trow(p[0],'',p[1],p[2])).join("")}
+const tk=seg(s);h+='<b>Mot à mot</b><div style="margin-top:8px"></div>'+trow(q,'',tk.map(t=>t.e?t.e[2]:rom(t.jp)).join(' '),tk.map(t=>t.e?t.e[3]:'?').join(' + '))+'<p class="sub" style="font-size:13px">Traduction approximative mot à mot, pas une traduction grammaticale.</p>'+tk.map(t=>trow(t.jp,t.e?t.e[1]:'',t.e?t.e[2]:rom(t.jp),t.e?t.e[3]:'(absent du dictionnaire hors ligne)')).join("")}
+else{const n=nm(q);if(n.length<2)return '<p class="sub">Tapez au moins 2 lettres.</p>';
+const w=DICT.filter(e=>nm(e[3]).includes(n)||nm(e[2]).includes(n)).slice(0,8),p=PH.filter(x=>nm(x[2]).includes(n)||nm(x[1]).includes(n)).slice(0,5);
+h+=w.length?'<b>Mots</b><div style="margin-top:8px"></div>'+w.map(e=>trow(e[0],e[1],e[2],e[3])).join(""):'';
+h+=p.length?'<b>Phrases</b><div style="margin-top:8px"></div>'+p.map(x=>trow(x[0],'',x[1],x[2])).join(""):'';
+if(!h)h='<p class="sub">Aucun résultat dans le dictionnaire hors ligne. Essayez la recherche en ligne.</p>'}
+return h}
+function trad(){const q=encodeURIComponent(tq);
+$("#m").innerHTML=`<h2>${ic('tr')}Traduction</h2><p class="intro">Tapez un mot ou une phrase en japonais, en romaji ou en français. Le dictionnaire hors ligne est intégré ; la recherche en ligne ouvre un service externe.</p>
+<div class="card"><input type="text" id="tqi" value="${esc(tq)}" placeholder="neko, 猫, chat, 私は学生です" onkeydown="if(event.key=='Enter'){tsy();trad()}"><div class="row"><button class="btn" onclick="tsy();trad()">Traduire</button><button class="btn g ${tro?'on':''}" onclick="tsy();tro=!tro;trad()">Romaji</button><button class="btn g ${ttr?'on':''}" onclick="tsy();ttr=!ttr;trad()">Traduction</button></div>
+${tq?`<div class="row"><small>En ligne (nouvel onglet) :</small><a class="btn g" style="text-decoration:none" target="_blank" rel="noopener noreferrer" href="https://jisho.org/search/${q}">Jisho</a><a class="btn g" style="text-decoration:none" target="_blank" rel="noopener noreferrer" href="https://www.deepl.com/translator#ja/fr/${q}">DeepL</a><a class="btn g" style="text-decoration:none" target="_blank" rel="noopener noreferrer" href="https://translate.google.com/?sl=auto&tl=fr&text=${q}&op=translate">Google Traduction</a></div>`:''}</div>${tq?tres(tq):''}`}
+/* ---------- Jeu ---------- */
+let G=null,gset={sc:'hk',lv:55};
+let gsel={},gct='h',gopen=false;
+const gre=()=>{const y=$("#m").scrollTop;game();$("#m").scrollTop=y};
+function gcust(){const n=Object.keys(gsel).length;
+return `<div class="row"><button class="btn g ${gopen?'on':''}" onclick="gopen=!gopen;gre()">Choisir les kana à travailler${n?' ('+n+')':''}</button>${n?'<small>Ces kana remplacent le réglage « Système ».</small>':''}</div>`+(gopen?`<div class="row"><button class="btn g ${gct=='h'?'on':''}" onclick="gct='h';gre()">Hiragana</button><button class="btn g ${gct=='k'?'on':''}" onclick="gct='k';gre()">Katakana</button></div><div class="row"><button class="btn g" onclick="gsl(1)">Tout sélectionner</button><button class="btn g" onclick="gsl(0)">Tout désélectionner</button><button class="btn g" onclick="gsl(2)">Sélectionner les non appris</button></div><div class="grid" style="margin-bottom:14px">${KANA.filter(k=>k.t==gct).map(k=>`<div class="k ${gsel[k.t+k.c]?'s':''}" onclick="gtg('${k.t+k.c}',this)"><b class="jp">${k.c}</b><small>${k.r}</small></div>`).join("")}</div>`:'')}
+const gtg=(id,el)=>{gsel[id]?delete gsel[id]:gsel[id]=1;el.classList.toggle('s')};
+const gsl=m=>{KANA.filter(k=>k.t==gct).forEach(k=>{const id=k.t+k.c;if(m==0)delete gsel[id];else if(m==1||!S.lk[id])gsel[id]=1});gre()};
+function stopGame(){if(G){cancelAnimationFrame(G.raf);G=null}}
+function game(){stopGame();
+$("#m").innerHTML=`<h2>${ic('game')}Les kana qui tombent</h2><p class="intro">Tapez le romaji de chaque kana avant qu’il touche la ligne rouge. Vous avez 5 vies.</p><div class="card"><div class="row"><small>Système</small>${[['h','Hiragana'],['k','Katakana'],['hk','Les deux']].map(x=>`<button class="btn g ${gset.sc==x[0]?'on':''}" onclick="gset.sc='${x[0]}';game()">${x[1]}</button>`).join("")}</div>
+<div class="row"><small>Vitesse</small>${[[30,'Lente'],[55,'Normale'],[90,'Rapide']].map(x=>`<button class="btn g ${gset.lv==x[0]?'on':''}" onclick="gset.lv=${x[0]};game()">${x[1]}</button>`).join("")}</div>
+${gcust()}<button class="btn" onclick="gstart()">${ic('play')}Jouer</button><p class="sub" style="font-size:14px">Tapez le romaji du kana avant qu'il n'atteigne la ligne rouge. 5 vies. Meilleur score : ${S.best}</p></div>`}
+function gstart(pool){pool=pool||(Object.keys(gsel).length?KANA.filter(k=>gsel[k.t+k.c]):KANA.filter(k=>gset.sc.includes(k.t)));
+$("#m").innerHTML=`<h2>Les kana qui tombent</h2><div class="row"><b id="hud"></b></div><div id="area"><div class="line"></div></div><div style="margin-top:10px"><input type="text" id="gi" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="Tapez le romaji ici"></div>`;
+G={pool,items:[],lives:5,sc:0,sp:gset.lv,last:performance.now(),sp_t:0,miss:{},over:false};
+const gi=$("#gi");gi.focus();
+gi.oninput=()=>{const v=nr(gi.value.trim().toLowerCase());const it=G.items.filter(i=>nr(i.k.r)==v).sort((a,b)=>b.y-a.y)[0];
+if(it){it.el.style.transform='translateX(-50%) scale(0)';it.el.style.opacity=0;it.el.style.transition='all .2s';setTimeout(()=>it.el.remove(),200);G.items.splice(G.items.indexOf(it),1);G.sc++;G.sp+=1.2;gi.value=''}};
+G.raf=requestAnimationFrame(gloop)}
+function gloop(t){if(!G)return;const dt=Math.min(.05,(t-G.last)/1e3);G.last=t;const a=$("#area");if(!a)return;const h=a.clientHeight;
+G.sp_t-=dt;if(G.sp_t<=0){const k=G.pool[Math.floor(Math.random()*G.pool.length)];const el=document.createElement('div');el.className='f jp';el.textContent=k.c;const x=30+Math.random()*(a.clientWidth-60);el.style.left=x+'px';a.appendChild(el);G.items.push({k,el,y:0});G.sp_t=Math.max(.8,2.6-G.sp/80)}
+for(const i of [...G.items]){i.y+=G.sp*dt;i.el.style.top=i.y+'px';if(i.y>h-44){i.el.remove();G.items.splice(G.items.indexOf(i),1);G.lives--;G.miss[i.k.c]=(G.miss[i.k.c]||0)+1;S.wrong[i.k.t+i.k.c]=(S.wrong[i.k.t+i.k.c]||0)+1}}
+$("#hud").textContent=`Vies : ${G.lives} · Score : ${G.sc} · Vitesse : ${Math.round(G.sp)}`;
+if(G.lives<=0)return gend();G.raf=requestAnimationFrame(gloop)}
+function gend(){const g=G;G=null;if(g.sc>S.best)S.best=g.sc;save();
+const ms=Object.keys(g.miss).map(c=>KANA.find(k=>k.c==c));
+$("#m").innerHTML=`<h2>Partie terminée</h2><div class="card"><div class="big" style="font-size:48px">${g.sc}</div><p class="mid sub">points · meilleur score : ${S.best}</p>
+<b>Caractères ratés (temps écoulé)</b><div class="grid" style="margin-top:8px">${ms.map(k=>`<div class="k"><b class="jp">${k.c}</b><small>${k.r} · ${g.miss[k.c]}×</small></div>`).join("")}</div>
+<div class="row"><button class="btn" onclick="gstart()">Rejouer</button>${ms.length?`<button class="btn g" onclick='gstart(window.__m)'>Rejouer les ratés</button>`:''}<button class="btn g" onclick="game()">Retour au menu</button></div></div>`;window.__m=ms}
+/* ---------- Progression ---------- */
+function set(){const c=t=>KANA.filter(k=>k.t==t&&S.lk[k.t+k.c]).length,T=KANA.filter(k=>k.t=='h').length;
+const tot=S.res.reduce((a,r)=>a+r.n,0),ok=S.res.reduce((a,r)=>a+r.s,0);
+const wr=Object.keys(S.wrong).sort((a,b)=>S.wrong[b]-S.wrong[a]).slice(0,12).map(x=>x.slice(1));
+const row=(l,v,t)=>`<div style="margin-bottom:12px"><div class="row" style="justify-content:space-between;margin:0 0 4px"><span>${l}</span><small>${v} / ${t}</small></div>${bar(v/t*100)}</div>`;
+$("#m").innerHTML=`<h2>${ic('set')}Progression et paramètres</h2><p class="intro">Votre avancement, le thème de l’application et la réinitialisation des données.</p><div class="card">${row('Hiragana appris',c('h'),T)}${row('Katakana appris',c('k'),T)}${row('Kanji appris',KJ.filter(k=>S.lk['j'+k.c]).length,KJ.length)}${row('Mots appris',Object.keys(S.lw).length,W.length)}
+<div class="sub">Histoires lues : ${Object.keys(S.rf||{}).length} · Quiz réalisés : ${S.res.length} · Réussite : ${tot?Math.round(ok/tot*100)+' %':'–'}</div></div>
+<div class="card"><b>À retravailler</b><div class="row">${wr.map(c=>`<span class="jp" style="font-size:26px">${c}</span>`).join("")||'<small>Rien pour l\'instant.</small>'}</div></div>
+<div class="card"><b>Thème</b><div class="row">${[['auto','Automatique'],['light','Jour'],['dark','Nuit'],['sakura','Sakura'],['bambou','Bambou'],['indigo','Indigo'],['kaki','Kaki (automne)']].map(x=>`<button class="btn g ${S.theme==x[0]?'on':''}" onclick="S.theme='${x[0]}';save();setTheme();set()">${x[1]}</button>`).join("")}</div>
+<small>Les données sont enregistrées dans ce navigateur uniquement (pas de synchronisation entre appareils).</small>
+<div class="row"><button class="btn" onclick="if(confirm('Réinitialiser toute la progression ?')){localStorage.removeItem('nj');location.reload()}">Réinitialiser la progression</button></div></div>`}
+go('home');
+</script></body></html>
